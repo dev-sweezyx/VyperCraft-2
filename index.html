@@ -1,1 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vyper Craft - Servidor MC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background: #0a0a0a; color: #fff; scroll-behavior: smooth; }
+a { text-decoration: none; color: inherit; }
 
+/* Header */
+header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: #111; position: sticky; top:0; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,0.5);}
+header img { height:60px;}
+nav ul { display:flex; list-style:none; gap:25px; }
+nav ul li a { font-weight:600; color:#fff; transition:0.3s;}
+nav ul li a:hover { color:#00ffcc; }
+
+/* Hero */
+.hero { background: url('https://images.unsplash.com/photo-1603077031260-fdc4bc7d90d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fG1pbmNyYWZ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-4.0.3&q=80&w=1200') center/cover no-repeat; height:550px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; text-shadow:2px 2px 12px #000;}
+.hero h1 { font-size:4.5rem; color:#00ffcc; margin-bottom:15px; }
+.hero p { font-size:1.3rem; margin-bottom:25px; }
+.hero .btn { padding:14px 35px; background:linear-gradient(90deg,#00ffcc,#009988); color:#000; font-weight:bold; border:none; border-radius:12px; cursor:pointer; transition:0.3s; }
+.hero .btn:hover { background:linear-gradient(90deg,#009988,#00ffcc); }
+
+/* Secciones */
+section { padding:70px 20px; max-width:1300px; margin:auto; }
+h2 { font-size:2.8rem; text-align:center; margin-bottom:50px; color:#00ffcc; }
+
+/* Rangos VIP/Especiales */
+.ranks { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+.rank { padding:25px; border-radius:15px; text-align:center; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; background:#111;}
+.rank:hover { transform:translateY(-10px); box-shadow:0 0 25px #00ffcc; }
+
+.rank img { width:100%; height:120px; object-fit:cover; border-radius:12px; margin-bottom:12px;}
+.rank h3 { font-size:1.5rem; margin-bottom:8px; }
+.rank p { font-size:1rem; color:#ddd; }
+
+/* Colores de los rangos */
+.rank.vip { border-top:4px solid #1e90ff;}
+.rank.vcplus { border-top:4px solid #8e44ad;}
+.rank.hero { border-top:4px solid #e67e22;}
+.rank.heroplus { border-top:4px solid #d35400;}
+.rank.premium { border-top:4px solid #f1c40f;}
+.rank.olympus { border-top:4px solid #2ecc71;}
+
+/* Info del servidor */
+.server-info { display:flex; flex-wrap:wrap; justify-content:space-around; gap:25px; }
+.server-info div { background:#111; padding:25px; border-radius:15px; text-align:center; min-width:180px; box-shadow:0 0 15px rgba(0,255,204,0.3); }
+
+/* Formulario login/registro */
+.forms { display:flex; flex-wrap:wrap; justify-content:space-around; gap:35px; margin-top:50px; }
+.form-box { background:#111; padding:35px; border-radius:20px; flex:1; min-width:320px; box-shadow:0 0 20px rgba(0,255,204,0.2); }
+.form-box h3 { margin-bottom:25px; color:#00ffcc; text-align:center; }
+.form-box input { width:100%; padding:14px; margin-bottom:18px; border-radius:10px; border:none; background:#222; color:#fff; font-size:1rem; }
+.form-box button { width:100%; padding:14px; border:none; border-radius:12px; background:linear-gradient(90deg,#00ffcc,#009988); color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; transition:0.3s; }
+.form-box button:hover { background:linear-gradient(90deg,#009988,#00ffcc); }
+
+/* Discord Button */
+.discord-btn { display:block; margin:50px auto 0; padding:14px 35px; background:#7289da; color:#fff; border-radius:12px; text-align:center; font-weight:bold; font-size:1.1rem; transition:0.3s; }
+.discord-btn:hover { background:#5b6eae; }
+
+/* Chat */
+.chat-box { background:#111; padding:20px; border-radius:15px; max-width:500px; margin:50px auto; box-shadow:0 0 20px rgba(0,255,204,0.2);}
+.chat-box h3 { text-align:center; color:#00ffcc; margin-bottom:15px;}
+.chat-messages { height:200px; overflow-y:auto; background:#222; padding:10px; border-radius:10px; margin-bottom:15px;}
+.chat-messages div { margin-bottom:8px; }
+.chat-box input { width:calc(100% - 90px); padding:10px; border:none; border-radius:10px; background:#333; color:#fff; }
+.chat-box button { width:70px; padding:10px; border:none; border-radius:10px; background:#00ffcc; color:#000; font-weight:bold; cursor:pointer; transition:0.3s;}
+.chat-box button:hover { background:#009988;}
+
+/* Footer */
+footer { background:#111; text-align:center; padding:25px; margin-top:60px; color:#888; }
+
+/* Animaciones */
+@keyframes fadeIn { 0%{opacity:0; transform:translateY(20px);}100%{opacity:1;transform:translateY(0);} }
+section{ animation:fadeIn 1s ease forwards; }
+
+/* Responsive */
+@media(max-width:768px){ .hero h1{ font-size:3.2rem;} .hero p{ font-size:1rem;} }
+</style>
+</head>
+<body>
+
+<header>
+<img src="https://via.placeholder.com/180x60?text=VyperCraft" alt="Logo Vyper Craft">
+<nav>
+<ul>
+<li><a href="#inicio">Inicio</a></li>
+<li><a href="#rangos">Rangos VIP</a></li>
+<li><a href="#info">Servidor</a></li>
+<li><a href="#forms">Login/Registro</a></li>
+<li><a href="#chat">Chat</a></li>
+</ul>
+</nav>
+</header>
+
+<section id="inicio" class="hero">
+<h1>Vyper Craft</h1>
+<p>Servidor MC 0.15.10-14.3 – ¡VIP y diversión sin límites!</p>
+<button class="btn">Conectar Ahora</button>
+<a href="https://discord.gg/" target="_blank" class="discord-btn">Únete a nuestro Discord</a>
+</section>
+
+<section id="rangos">
+<h2>Rangos VIP</h2>
+<div class="ranks">
+<div class="rank vip">
+<img src="https://via.placeholder.com/200x120?text=VIP" alt="VIP">
+<h3>VIP</h3>
+<p>Beneficios básicos: accesorios y ventajas en el juego.</p>
+<button onclick="comprar('VIP')">Comprar</button>
+</div>
+<div class="rank vcplus">
+<img src="https://via.placeholder.com/200x120?text=VC%2B%2B" alt="VC++">
+<h3>VC++</h3>
+<p>Extras exclusivos y ventajas avanzadas.</p>
+<button onclick="comprar('VC++')">Comprar</button>
+</div>
+<div class="rank hero">
+<img src="https://via.placeholder.com/200x120?text=HERO" alt="HERO">
+<h3>HERO</h3>
+<p>Acceso a contenido VIP especial.</p>
+<button onclick="comprar('HERO')">Comprar</button>
+</div>
+<div class="rank heroplus">
+<img src="https://via.placeholder.com/200x120?text=HERO%2B" alt="HERO+">
+<h3>HERO+</h3>
+<p>Beneficios extendidos y recompensas únicas.</p>
+<button onclick="comprar('HERO+')">Comprar</button>
+</div>
+<div class="rank premium">
+<img src="https://via.placeholder.com/200x120?text=PREMIUM" alt="PREMIUM">
+<h3>PREMIUM</h3>
+<p>Máximos privilegios y personalización.</p>
+<button onclick="comprar('PREMIUM')">Comprar</button>
+</div>
+<div class="rank olympus">
+<img src="https://via.placeholder.com/200x120?text=OLYMPUS" alt="OLYMPUS">
+<h3>OLYMPUS</h3>
+<p>Elite VIP, todos los beneficios sin límites.</p>
+<button onclick="comprar('OLYMPUS')">Comprar</button>
+</div>
+</div>
+</section>
+
+<section id="info">
+<h2>Información del Servidor</h2>
+<div class="server-info">
+<div><strong>IP:</strong><p>vypercraft.mc</p></div>
+<div><strong>Versión:</strong><p>0.15.10-14.3</p></div>
+<div><strong>Jugadores Online:</strong><p>124 / 500</p></div>
+<div><strong>Estado:</strong><p style="color:#00ffcc;">Online</p></div>
+</div>
+</section>
+
+<section id="forms">
+<h2>Login y Registro</h2>
+<div class="forms">
+<div class="form-box">
+<h3>Registro</h3>
+<input type="text" placeholder="Nombre de usuario" id="reg-user">
+<input type="email" placeholder="Email" id="reg-email">
+<input type="password" placeholder="Contraseña" id="reg-pass">
+<button onclick="registro()">Registrarse</button>
+</div>
+<div class="form-box">
+<h3>Login</h3>
+<input type="text" placeholder="Usuario o Email" id="login-user">
+<input type="password" placeholder="Contraseña" id="login-pass">
+<button onclick="login()">Iniciar Sesión</button>
+</div>
+</div>
+</section>
+
+<section id="chat">
+<h2>Chat del Servidor</h2>
+<div class="chat-box">
+<h3>Chat Vyper Craft</h3>
+<div class="chat-messages" id="chat-messages"></div>
+<input type="text" id="chat-input" placeholder="Escribe un mensaje">
+<button onclick="enviarMensaje()">Enviar</button>
+</div>
+</section>
+
+<footer>
+&copy; 2026 Vyper Craft. Todos los derechos reservados.
+</footer>
+
+<script>
+// Simula login/registro
+let loggedIn = false;
+function registro() {
+  const user = document.getElementById('reg-user').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass = document.getElementById('reg-pass').value.trim();
+  if(!user || !email || !pass) return alert('Completa todos los campos.');
+  loggedIn = true;
+  alert(`Usuario ${user} registrado correctamente!`);
+}
+function login() {
+  const user = document.getElementById('login-user').value.trim();
+  const pass = document.getElementById('login-pass').value.trim();
+  if(!user || !pass) return alert('Completa todos los campos.');
+  loggedIn = true;
+  alert(`Bienvenido ${user}!`);
+}
+
+// Comprar rango
+function comprar(rango) {
+  if(!loggedIn) {
+    alert('Debes registrarte o iniciar sesión para comprar este rango.');
+    window.location.href = '#forms';
+    return;
+  }
+  alert(`Procediendo a comprar el rango: ${rango}`);
+}
+
+// Chat simple
+function enviarMensaje() {
+  const input = document.getElementById('chat-input');
+  const mensaje = input.value.trim();
+  if(!mensaje) return;
+  const chat = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.textContent = `Jugador: ${mensaje}`;
+  chat.appendChild(div);
+  input.value = '';
+  chat.scrollTop = chat.scrollHeight;
+}
+</script>
+</body>
+</html>
